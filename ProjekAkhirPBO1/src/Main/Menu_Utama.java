@@ -4,6 +4,8 @@
  */
 package Main;
 
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 /**
  *
@@ -17,6 +19,8 @@ public class Menu_Utama extends javax.swing.JFrame {
     public Menu_Utama() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        execute();
     }
 
     /**
@@ -31,7 +35,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         panel_navbar = new javax.swing.JPanel();
         panel_sidebar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        fitur = new javax.swing.JPanel();
+        pn_fitur = new javax.swing.JPanel();
         panel_content = new javax.swing.JPanel();
         panel_fitur = new javax.swing.JPanel();
 
@@ -56,8 +60,8 @@ public class Menu_Utama extends javax.swing.JFrame {
         panel_sidebar.setBackground(new java.awt.Color(204, 204, 204));
         panel_sidebar.setPreferredSize(new java.awt.Dimension(200, 400));
 
-        fitur.setLayout(new javax.swing.BoxLayout(fitur, javax.swing.BoxLayout.Y_AXIS));
-        jScrollPane1.setViewportView(fitur);
+        pn_fitur.setLayout(new javax.swing.BoxLayout(pn_fitur, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(pn_fitur);
 
         javax.swing.GroupLayout panel_sidebarLayout = new javax.swing.GroupLayout(panel_sidebar);
         panel_sidebar.setLayout(panel_sidebarLayout);
@@ -128,11 +132,36 @@ public class Menu_Utama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel fitur;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panel_content;
     private javax.swing.JPanel panel_fitur;
     private javax.swing.JPanel panel_navbar;
     private javax.swing.JPanel panel_sidebar;
+    private javax.swing.JPanel pn_fitur;
     // End of variables declaration//GEN-END:variables
+
+    private void execute() {
+        ImageIcon iconMaster = new ImageIcon(getClass().getResource(""));
+        ImageIcon iconTambah = new ImageIcon(getClass().getResource(""));
+        
+        Menu_Fitur menuTambahSoal = new Menu_Fitur(null, true, iconTambah, "Tambah Soal", null);
+        
+        Menu_Fitur menuAturSoal = new Menu_Fitur(iconMaster, false, null, "Atur Soal", null, menuTambahSoal);
+        Menu_Fitur menuPilSoal = new Menu_Fitur(iconMaster, false, null, "Pilih Soal", null);
+        Menu_Fitur menuHistory = new Menu_Fitur(iconMaster, false, null, "History", null);
+        
+        
+        addMenu(menuAturSoal, menuAturSoal, menuHistory);
+    }
+    
+    private void addMenu(Menu_Fitur... menu) {
+        for (int i = 0; i < menu.length; i++) {
+            pn_fitur.add(menu[i]);
+            ArrayList<Menu_Fitur> subFitur = menu[i].getSubFitur();
+            for (Menu_Fitur m : subFitur) {
+                addMenu(m);
+            }
+        }
+        pn_fitur.revalidate();
+    }
 }

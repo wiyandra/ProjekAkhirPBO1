@@ -40,7 +40,7 @@ public class Menu_Fitur extends javax.swing.JPanel {
         this.setSize(new Dimension(Integer.MAX_VALUE, 45));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
         this.setMinimumSize(new Dimension(Integer.MAX_VALUE, 45));
-        for (int i = 0; 1 < subFitur.length; i++) {
+        for (int i = 0; i < subFitur.length; i++) {
             this.subFitur.add(subFitur[i]);
             subFitur[i].setVisible(false);
         }
@@ -65,20 +65,23 @@ public class Menu_Fitur extends javax.swing.JPanel {
             }
         });
 
+        lb_fiturName.setBackground(new java.awt.Color(255, 255, 255));
         lb_fiturName.setText("Menu Fitur...");
+
+        lb_icon.setBackground(new java.awt.Color(255, 255, 255));
+
+        lb_iconSub.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(lb_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lb_iconSub, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lb_fiturName, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_fiturName, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,10 +110,40 @@ public class Menu_Fitur extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void hideMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = subFitur.size() - 1; i >= 0; i--) {
+                    sleep();
+                    subFitur.get(i).setVisible(false);
+                    subFitur.get(i).hideMenu();
+                }
+                getParent().repaint();
+                getParent().revalidate();
+                showing = false;
+            }
+        }).start();
     }
 
     private void showMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < subFitur.size(); i++) {
+                    sleep();
+                    subFitur.get(i).setVisible(true);
+                }
+                showing = true;
+                getParent().repaint();
+                getParent().revalidate();
+            }
+        }).start();
+    }
+    
+    private void sleep() {
+        try {
+            Thread.sleep(20);
+        } catch (Exception e) {
+        }
     }
 }

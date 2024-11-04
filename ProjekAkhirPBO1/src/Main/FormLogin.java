@@ -61,6 +61,11 @@ public class FormLogin extends javax.swing.JFrame {
         bt_login.setBackground(new java.awt.Color(0, 204, 255));
         bt_login.setText("LOGIN");
         bt_login.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 204, 255)));
+        bt_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_loginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_loginLayout = new javax.swing.GroupLayout(panel_login);
         panel_login.setLayout(panel_loginLayout);
@@ -71,12 +76,12 @@ public class FormLogin extends javax.swing.JFrame {
                 .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bt_login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(t_pass, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addContainerGap(427, Short.MAX_VALUE))
+                .addContainerGap(450, Short.MAX_VALUE))
             .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panel_loginLayout.createSequentialGroup()
                     .addGap(71, 71, 71)
                     .addComponent(t_user, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(426, Short.MAX_VALUE)))
+                    .addContainerGap(449, Short.MAX_VALUE)))
         );
         panel_loginLayout.setVerticalGroup(
             panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +98,7 @@ public class FormLogin extends javax.swing.JFrame {
                     .addContainerGap(204, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(panel_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(panel_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 400));
 
         pack();
         setLocationRelativeTo(null);
@@ -126,6 +131,14 @@ public class FormLogin extends javax.swing.JFrame {
             t_pass.setText("Password");
         }
     }//GEN-LAST:event_t_passFocusLost
+
+    private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
+        Menu_Utama menu = new Menu_Utama();
+        menu.setVisible(true);
+        menu.revalidate();
+        
+        dispose();
+    }//GEN-LAST:event_bt_loginActionPerformed
 
     /**
      * @param args the command line arguments
