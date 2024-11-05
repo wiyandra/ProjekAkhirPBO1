@@ -4,9 +4,13 @@
  */
 package Main;
 
+
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Alexigos
@@ -40,6 +44,11 @@ public class Menu_Utama extends javax.swing.JFrame {
         panel_fitur = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         panel_navbar.setBackground(new java.awt.Color(102, 204, 255));
         panel_navbar.setPreferredSize(new java.awt.Dimension(900, 75));
@@ -48,7 +57,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         panel_navbar.setLayout(panel_navbarLayout);
         panel_navbarLayout.setHorizontalGroup(
             panel_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 902, Short.MAX_VALUE)
         );
         panel_navbarLayout.setVerticalGroup(
             panel_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,7 +80,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         );
         panel_sidebarLayout.setVerticalGroup(
             panel_sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
         );
 
         getContentPane().add(panel_sidebar, java.awt.BorderLayout.LINE_START);
@@ -94,6 +103,13 @@ public class Menu_Utama extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(916, 508));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        panel_fitur.add(new content_bg());
+        panel_fitur.repaint();
+        panel_fitur.revalidate();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -144,14 +160,32 @@ public class Menu_Utama extends javax.swing.JFrame {
         ImageIcon iconMaster = new ImageIcon(getClass().getResource(""));
         ImageIcon iconTambah = new ImageIcon(getClass().getResource(""));
         
-        Menu_Fitur menuTambahSoal = new Menu_Fitur(null, true, iconTambah, "Tambah Soal", null);
-        
+        Menu_Fitur menuTambahSoal = new Menu_Fitur(null, true, iconTambah, "Tambah Soal", new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel_fitur.removeAll();
+                panel_fitur.add(new form_soal());
+                panel_fitur.repaint();
+                panel_fitur.revalidate();
+    }
+});
+
+        Menu_Fitur menuHome = new Menu_Fitur(iconMaster, false, null, "Home", new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel_fitur.removeAll();
+                panel_fitur.add(new content_bg());
+                panel_fitur.repaint();
+                panel_fitur.revalidate();
+
+                }
+        });
         Menu_Fitur menuAturSoal = new Menu_Fitur(iconMaster, false, null, "Atur Soal", null, menuTambahSoal);
         Menu_Fitur menuPilSoal = new Menu_Fitur(iconMaster, false, null, "Pilih Soal", null);
         Menu_Fitur menuHistory = new Menu_Fitur(iconMaster, false, null, "History", null);
         
         
-        addMenu(menuAturSoal, menuAturSoal, menuHistory);
+        addMenu(menuHome, menuAturSoal, menuPilSoal, menuHistory);
     }
     
     private void addMenu(Menu_Fitur... menu) {
